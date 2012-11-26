@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+    <head>
+        <meta charset="utf-8"/>
+        <title>Paylink example</title>
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet'
+              type='text/css'/>
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet"/>
+    </head>
+    <body>
+        <h3>Payment link result</h3>
+        <p>Title: <span wicket:id="title">title</span></p>
+        <p>Expires: <span wicket:id="expires">expires</span></p>
+        <p>URL: <a href="#" wicket:id="url">url</a></p>
+        <p>Paylink items:</p>
+        <span wicket:id="items">
+           <span wicket:id="label">label</span><br/>
+        </span>
+    </body>
+</html>
