@@ -3,14 +3,14 @@
   <parent>
     <groupId>no.spp.sdk</groupId>
     <artifactId>spp-parent</artifactId>
-    <version>1.3.6</version>
+    <version>1.3.7-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>no.spp.sdk</groupId>
   <artifactId>spp-sdk</artifactId>
   <packaging>jar</packaging>
   <name>spp-sdk</name>
-  <url>http://code.google.com/p/vgservices-sdk/</url>
+  <url>http://github.com/schibsted/sdk-java</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
