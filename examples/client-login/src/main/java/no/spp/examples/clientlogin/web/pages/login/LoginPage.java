@@ -1,6 +1,7 @@
 package no.spp.examples.clientlogin.web.pages.login;
 
 import no.spp.examples.clientlogin.ApplicationSettings;
+import no.spp.examples.clientlogin.SPiDWebSession;
 import no.spp.examples.clientlogin.web.pages.homepage.HomePage;
 import no.spp.sdk.client.SPPClient;
 import no.spp.sdk.client.UserClientBuilder;
@@ -31,8 +32,7 @@ public class LoginPage extends WebPage {
                         .withApiVersion(ApplicationSettings.API_VERSION)
                         .build();
 
-                getSession().setMetaData(ApplicationSettings.SPP_CLIENT_META_DATA_KEY, client);
-
+                SPiDWebSession.get().setSppClient(client);
             } catch (SPPClientException e) {
                 System.out.println(e.getMessage());
                 throw new RestartResponseAtInterceptPageException(InternalErrorPage.class);
