@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>no.spp.sdk</groupId>
+        <artifactId>spp-parent</artifactId>
+        <version>1.3.7-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>no.spp.examples</groupId>
+    <artifactId>spp-examples</artifactId>
+    <packaging>pom</packaging>
+    <name>spp-examples</name>
+    <url>http://github.com/schibsted/sdk-java</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jettyVersion>7.2.0.v20101020</jettyVersion>
+    </properties>
+
+    <modules>
+        <module>client-login</module>
+        <module>paylink</module>
+    </modules>
+</project>
