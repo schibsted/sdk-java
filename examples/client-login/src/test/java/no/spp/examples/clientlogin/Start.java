@@ -1,4 +1,4 @@
-package com.mycompany;
+package no.spp.examples.clientlogin;
 
 import org.apache.wicket.util.time.Duration;
 import org.eclipse.jetty.server.Server;

@@ -1,5 +1,6 @@
 package no.spp.examples.clientlogin.web.panels.logout;
 
+import no.spp.examples.clientlogin.SPiDWebSession;
 import no.spp.sdk.client.SPPClient;
 import no.spp.sdk.client.SPPClientResponse;
 import no.spp.sdk.exception.SPPClientException;
@@ -12,27 +13,38 @@ import org.apache.wicket.markup.html.pages.InternalErrorPage;
 import org.apache.wicket.markup.html.panel.Panel;
 
 public class LogoutPanel extends Panel {
-    public LogoutPanel(String id, SPPClient client) {
+
+    @Override
+    protected void onConfigure() {
+        super.onConfigure();
+        setVisibilityAllowed(SPiDWebSession.get().getSppClient() != null);
+    }
+
+    public LogoutPanel(String id) {
         super(id);
 
-        try {
-            SPPClientResponse response = client.GET("/me");
+        SPPClient client = SPiDWebSession.get().getSppClient();
 
-            add(new Label("username", response.getJSONObject().get("displayName").toString()));
-            add(new Label("userId", response.getJSONObject().get("userId").toString()));
-            add(new Label("email", response.getJSONObject().get("email").toString()));
+        if (client != null) {
+            try {
+                SPPClientResponse response = client.GET("/me");
 
-            add(new ExternalLink("logout", "http://www.google.no.spp.examples"));
+                add(new Label("username", response.getJSONObject().get("displayName").toString()));
+                add(new Label("userId", response.getJSONObject().get("userId").toString()));
+                add(new Label("email", response.getJSONObject().get("email").toString()));
 
-        } catch (SPPClientException e) {
-            System.out.println(e.getMessage());
-            throw new RestartResponseAtInterceptPageException(new InternalErrorPage());
-        } catch (SPPClientResponseException e) {
-            System.out.println(e.getMessage());
-            throw new RestartResponseAtInterceptPageException(new InternalErrorPage());
-        } catch (SPPClientRefreshTokenException e) {
-            System.out.println(e.getMessage());
-            throw new RestartResponseAtInterceptPageException(new InternalErrorPage());
+                add(new ExternalLink("logout", "http://www.google.no.spp.examples"));
+
+            } catch (SPPClientException e) {
+                System.out.println(e.getMessage());
+                throw new RestartResponseAtInterceptPageException(new InternalErrorPage());
+            } catch (SPPClientResponseException e) {
+                System.out.println(e.getMessage());
+                throw new RestartResponseAtInterceptPageException(new InternalErrorPage());
+            } catch (SPPClientRefreshTokenException e) {
+                System.out.println(e.getMessage());
+                throw new RestartResponseAtInterceptPageException(new InternalErrorPage());
+            }
         }
     }
 }
