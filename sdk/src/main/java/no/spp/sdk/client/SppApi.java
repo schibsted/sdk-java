@@ -56,7 +56,6 @@ public class SppApi {
         long startTime = System.currentTimeMillis();
         String requestUrl = this.buildRequestURL(sppClientRequest);
 
-
         try {
             response = this.httpClient.execute(requestUrl, parameters, null, sppClientRequest.getHttpMethod().toString());
 
@@ -64,7 +63,13 @@ public class SppApi {
             throw new SPPClientException(e);
         }
         long endTime = System.currentTimeMillis();
-        SPPClientResponse sppClientResponse = new SPPClientResponse(response.getResponseCode(), response.getResponseBody(), this.apiVersion, endTime - startTime);
+        SPPClientResponse sppClientResponse = null;
+        try {
+            sppClientResponse = new SPPClientResponse(response.getResponseCode(), response.getResponseBody(), this.apiVersion, endTime - startTime);
+        } catch (SPPClientResponseException e) {
+            log.trace("SPPClientResponseException from " + requestUrl + ": " + JSONSerializer.toJSON(e.getResponseBody()).toString(2));
+            throw e;
+        }
         log.trace("Response from " + requestUrl + ": " + JSONSerializer.toJSON(response.getResponseBody()).toString(2));
         return sppClientResponse;
 
