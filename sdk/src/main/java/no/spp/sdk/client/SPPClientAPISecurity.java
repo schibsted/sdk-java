@@ -81,11 +81,11 @@ public class SPPClientAPISecurity {
         Mac mac;
         SecretKeySpec sks;
 
-        Object[] keys = parameters.keySet().toArray();
+        String[] keys = parameters.keySet().toArray(new String[parameters.keySet().size()]);
         Arrays.sort(keys);
 
-        for (int i = 0; i < keys.length; i++) {
-            str += parameters.get(keys[i]);
+        for (String key : keys) {
+            str += parameters.get(key);
         }
 
         try {
