@@ -1,8 +1,11 @@
 package no.spp.sdk.oauth;
 
+import net.sf.json.JSONSerializer;
 import net.smartam.leeloo.client.OAuthClient;
 import net.smartam.leeloo.client.request.OAuthClientRequest;
+import net.smartam.leeloo.client.response.OAuthAccessTokenResponse;
 import net.smartam.leeloo.client.response.OAuthAuthzResponse;
+import net.smartam.leeloo.client.response.OAuthJSONAccessTokenResponse;
 import net.smartam.leeloo.common.exception.OAuthProblemException;
 import net.smartam.leeloo.common.exception.OAuthSystemException;
 import net.smartam.leeloo.common.message.types.GrantType;
@@ -22,10 +25,9 @@ public class OauthHelper {
     public static final String GRANT_TYPE_CLIENT_CREDENTIALS = "client_credentials";
     public static final String OAUTH_TOKEN_PATH = "/oauth/token";
     public static final String INVALID_GRANT_ERROR = "invalid_grant";
-
+    private final HTTPClient httpClient;
     private String sppBaseUrl;
     private ClientCredentials clientCredentials;
-    private final HTTPClient httpClient;
 
     public OauthHelper(String sppBaseUrl, ClientCredentials clientCredentials, HTTPClient httpClient) {
         this.sppBaseUrl = sppBaseUrl;
@@ -55,7 +57,8 @@ public class OauthHelper {
                     .buildQueryMessage()
                     .getLocationUri();
         } catch (OAuthSystemException e) {
-            log.error("Exception when getting authorization url for "+ clientId +" using redirect url: " +redirectURL +" and base url: " +sppBaseUrl );
+            log.error("Exception when getting authorization url for " + clientId + " using redirect url: " + redirectURL + " and base url: " + sppBaseUrl);
+            log.error("Error message:" + e.getMessage());
             throw new SPPClientException(e);
         }
     }
@@ -64,7 +67,8 @@ public class OauthHelper {
         try {
             return OAuthAuthzResponse.oauthCodeAuthzResponse(request).getCode();
         } catch (OAuthProblemException e) {
-            log.error("Exception when getting authorizationCode from request " +request.getQueryString());
+            log.error("Exception when getting authorizationCode from request " + request.getQueryString());
+            log.error("Error " + e.getMessage() + ": " + e.getDescription());
             throw new SPPClientException(e);
         }
     }
@@ -79,17 +83,25 @@ public class OauthHelper {
                     .setRedirectURI(clientCredentials.redirectUri)
                     .buildBodyMessage();
 
-            OAuthClient oAuthClient = new OAuthClient(httpClient);
-            return new OauthCredentials(oAuthClient.accessToken(request));
+            log.debug("Sending user access token request to url: " + request.getLocationUri());
+            log.trace("Request body: [" + request.getBody() + "]");
 
+            OAuthClient oAuthClient = new OAuthClient(httpClient);
+            OAuthAccessTokenResponse response = oAuthClient.accessToken(request);
+
+            log.debug("Received response from: " + request.getLocationUri());
+            log.trace("Response body: " + JSONSerializer.toJSON(response.getBody()).toString(2));
+            return new OauthCredentials(response);
         } catch (OAuthSystemException e) {
-            log.error("Exception when getting server access token for base  url " + sppBaseUrl +" using " + clientCredentials );
+            log.error("Exception when getting server access token for base  url " + sppBaseUrl + " using " + clientCredentials);
+            log.error("Error message: " + e.getMessage());
             throw new SPPClientException(e);
         } catch (OAuthProblemException e) {
-            log.error("Exception when getting server access token for base  url " + sppBaseUrl +" using " + clientCredentials );
-    	    if (isInvalidGrantError(e)) 
-    		    throw new SPPClientInvalidGrantException(e);
-            
+            log.error("Exception when getting server access token for base  url " + sppBaseUrl + " using " + clientCredentials);
+            log.error("Error " + e.getMessage() + ": " + e.getDescription());
+            if (isInvalidGrantError(e))
+                throw new SPPClientInvalidGrantException(e);
+
             throw new SPPClientException(e);
         }
 
@@ -100,7 +112,8 @@ public class OauthHelper {
      *
      * @param authorizationCode code needed when requesting a user access token
      * @return OauthCredentials
-     * @throws no.spp.sdk.exception.SPPClientException if OAuth exchange fails
+     * @throws no.spp.sdk.exception.SPPClientException
+     *          if OAuth exchange fails
      */
     public OauthCredentials getUserAccessToken(String authorizationCode) throws SPPClientException {
         return this.getUserAccessToken(authorizationCode, clientCredentials.getRedirectUri());
@@ -108,9 +121,10 @@ public class OauthHelper {
 
     /**
      * @param authorizationCode code needed when requesting a user access token
-     * @param redirectUri must be exactly the same as used in the authorization.
+     * @param redirectUri       must be exactly the same as used in the authorization.
      * @return OauthCredentials
-     * @throws no.spp.sdk.exception.SPPClientException if OAuth exchange fails
+     * @throws no.spp.sdk.exception.SPPClientException
+     *          if OAuth exchange fails
      */
     public OauthCredentials getUserAccessToken(String authorizationCode, String redirectUri) throws SPPClientException {
         try {
@@ -123,17 +137,24 @@ public class OauthHelper {
                     .setCode(authorizationCode)
                     .buildBodyMessage();
 
-            OAuthClient oAuthClient = new OAuthClient(httpClient);
+            log.debug("Sending user access token request to url: " + request.getLocationUri());
+            log.trace("Request body: [" + request.getBody() + "]");
 
-            log.debug("UseraccessToken request: {}{}",request.getLocationUri(), request.getBody());
+            OAuthClient oAuthClient = new OAuthClient(httpClient);
+            OAuthAccessTokenResponse response = oAuthClient.accessToken(request);
+
+            log.debug("Received response from: " + request.getLocationUri());
+            log.trace("Response body: " + JSONSerializer.toJSON(response.getBody()).toString(2));
             return new OauthCredentials(oAuthClient.accessToken(request));
         } catch (OAuthSystemException e) {
-            log.error("Exception when getting user access token for base  url " + sppBaseUrl + " using " + clientCredentials );
+            log.error("Exception when getting user access token for base  url " + sppBaseUrl + " using " + clientCredentials);
+            log.error("Error response: " + e.getMessage());
             throw new SPPClientException(e);
         } catch (OAuthProblemException e) {
-            log.error("Exception when getting user access token for base  url " + sppBaseUrl + " using " + clientCredentials );
-    	    if (isInvalidGrantError(e)) 
-    		    throw new SPPClientInvalidGrantException(e);
+            log.error("Exception when getting user access token for base  url " + sppBaseUrl + " using " + clientCredentials);
+            log.error("Error " + e.getMessage() + ": " + e.getDescription());
+            if (isInvalidGrantError(e))
+                throw new SPPClientInvalidGrantException(e);
             throw new SPPClientException(e);
         }
     }
@@ -141,39 +162,45 @@ public class OauthHelper {
     /**
      * @param oauthCredentials the OauthCredentials to refresh
      * @return A new refreshed instance of {@link no.spp.sdk.oauth.OauthCredentials}
-     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException if OAuth exchange fails
+     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException
+     *                                        if OAuth exchange fails
      * @throws SPPClientInvalidGrantException if grant was found invalid when trying to refresh
      */
     public OauthCredentials refreshOauthCredentials(OauthCredentials oauthCredentials) throws SPPClientRefreshTokenException, SPPClientInvalidGrantException {
-       try {
-           Timer timer = new Timer();
+        try {
+            OAuthClientRequest request = OAuthClientRequest
+                    .tokenLocation(sppBaseUrl + "/oauth/token")
+                    .setGrantType(GrantType.REFRESH_TOKEN)
+                    .setClientId(clientCredentials.clientId)
+                    .setClientSecret(clientCredentials.clientSecret)
+                    .setRedirectURI(clientCredentials.redirectUri)
+                    .setRefreshToken(oauthCredentials.getRefreshToken())
+                    .buildBodyMessage();
 
-           log.debug("Refreshing client token");
-           OAuthClientRequest request = OAuthClientRequest
-                   .tokenLocation(sppBaseUrl + "/oauth/token")
-                   .setGrantType(GrantType.REFRESH_TOKEN)
-                   .setClientId(clientCredentials.clientId)
-                   .setClientSecret(clientCredentials.clientSecret)
-                   .setRedirectURI(clientCredentials.redirectUri)
-                   .setRefreshToken(oauthCredentials.getRefreshToken())
-                   .buildBodyMessage();
+            log.debug("Sending user access token refresh request to url: " + request.getLocationUri());
+            log.trace("Request body: [" + request.getBody() + "]");
 
-           OAuthClient oAuthClient = new OAuthClient(httpClient);
-           OauthCredentials refreshedOauthCredentials = new OauthCredentials(oAuthClient.accessToken(request));
-           log.debug("Refresh done. Took: " + timer.getElapsedTime() + " millis");
-           return refreshedOauthCredentials;
-       } catch (OAuthSystemException e) {
-           throw new SPPClientRefreshTokenException("Unable to refresh token", e);
-       } catch (OAuthProblemException e) {
-           if (isInvalidGrantError(e))
-               throw new SPPClientInvalidGrantException(e);
-           throw new SPPClientRefreshTokenException("Unable to refresh token", e);
-       }
+            OAuthClient oAuthClient = new OAuthClient(httpClient);
+            OAuthJSONAccessTokenResponse response = oAuthClient.accessToken(request);
+
+            log.debug("Received response from: " + request.getLocationUri());
+            log.trace("Response body: " + JSONSerializer.toJSON(response.getBody()).toString(2));
+            return new OauthCredentials(response);
+        } catch (OAuthSystemException e) {
+            log.error("Error response: " + e.getMessage());
+            throw new SPPClientRefreshTokenException("Unable to refresh token", e);
+        } catch (OAuthProblemException e) {
+            log.error("Error response: " + e.getMessage());
+            if (isInvalidGrantError(e))
+                throw new SPPClientInvalidGrantException(e);
+            throw new SPPClientRefreshTokenException("Unable to refresh token", e);
+        }
     }
 
     private boolean isInvalidGrantError(OAuthProblemException e) {
-    	return e.getError() != null && e.getError().equals(INVALID_GRANT_ERROR);    	
+        return e.getError() != null && e.getError().equals(INVALID_GRANT_ERROR);
     }
+
     public ClientCredentials getClientCredentials() {
         return clientCredentials;
     }
