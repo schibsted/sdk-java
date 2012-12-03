@@ -13,9 +13,6 @@ import net.sf.json.JSONObject;
 import static org.junit.Assert.*;
 
 public class SPPClientResponseTest {
-    @Before
-    public void setUp() {
-    }
 
     @Test
     public void getJSONObjectJSONException() throws SPPClientResponseException {

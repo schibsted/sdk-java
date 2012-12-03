@@ -12,11 +12,6 @@ import org.junit.Test;
 
 public class IntegrationTest {
 
-    @Test
-    public void emptyTestToPreventFail() {
-
-    }
-
     public static void main(String[] args) throws SPPClientRefreshTokenException, SPPClientResponseException, SPPClientException {
         if (args.length == 0) {
             System.out.println("Please provide client secret as arg");

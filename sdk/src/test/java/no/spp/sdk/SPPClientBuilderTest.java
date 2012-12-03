@@ -29,9 +29,6 @@ public class SPPClientBuilderTest {
     public static final int EXPIRES = 3600;
     public static final String SPP_BASE_URL = "http://base.url";
 
-    private SPPClient sppClient;
-
-
     private static String getAccessTokenResponseJson(){
         return getAccessTokenResponseJson(SAMPLE_ACCESS_TOKEN, EXPIRES, SAMPLE_REFRESH_TOKEN);
     }
@@ -48,10 +45,10 @@ public class SPPClientBuilderTest {
             new FakeHTTPClientWithFixedResponse(getAccessTokenResponseJson()));
         OauthCredentials tokenResponse =  oauthHelper.getServerAccessToken();
 
-        sppClient = new UserClientBuilder(credentials)
-            .withUserOauthCredentials(tokenResponse)
-            .withBaseUrl(SPP_BASE_URL)
-            .build();
+        SPPClient sppClient = new UserClientBuilder(credentials)
+                .withUserOauthCredentials(tokenResponse)
+                .withBaseUrl(SPP_BASE_URL)
+                .build();
     }
 
 

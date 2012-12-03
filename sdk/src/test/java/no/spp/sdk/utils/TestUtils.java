@@ -17,10 +17,6 @@ import java.util.Properties;
 
 public class TestUtils {
 
-	@Test
-	public void emptyTest() {
-	}
-
 	public SPPClientResponse assertHttpCodeForRequest(SPPClient client, String endpoint) {
 		return assertHttpCodeForRequest(client, endpoint, new HashMap<String, String>(0));
 	}
