@@ -24,7 +24,7 @@
 	{{/if}}
 	{{each(i, field) fields}}
 	<div class="field">
-		<label for="">${field}</label>
+		<label>${field}</label>
 		<input type="text" name="${field}" index="${requiredFields.indexOf(field)}" {{if requiredFields.indexOf(field) >= 0}}required{{/if}}>
 	</div>
 	{{/each}}
@@ -49,7 +49,7 @@
     </div>
 	
 	<div class="field">
-		<label for="">asasdas</label>
+		<label>asasdas</label>
 		<input type="text" name="">
 	</div>
 	<div class="field footer">		
