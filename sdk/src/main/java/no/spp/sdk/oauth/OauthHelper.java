@@ -13,7 +13,6 @@ import no.spp.sdk.exception.SPPClientException;
 import no.spp.sdk.exception.SPPClientInvalidGrantException;
 import no.spp.sdk.exception.SPPClientRefreshTokenException;
 import no.spp.sdk.net.HTTPClient;
-import no.spp.sdk.utils.Timer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,8 +1,8 @@
 package no.spp.sdk.net;
 
-import java.util.Map;
-
 import no.spp.sdk.exception.HTTPClientException;
+
+import java.util.Map;
 
 /**
  * HTTPClient interface

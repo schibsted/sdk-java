@@ -4,7 +4,6 @@ import no.spp.example.exception.ServletControllerException;
 import no.spp.example.output.HTMLOutput;
 import no.spp.example.output.JSONOutput;
 import no.spp.example.output.Output;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -116,8 +115,7 @@ public abstract class ServletController extends HttpServlet
 		return new HTMLOutput(getServletContext());
 	}
 
-	protected Output getOutput(String page)
-	{		
+	protected Output getOutput() {
 		return this.output;		
 	}
 	

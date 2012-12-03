@@ -5,8 +5,6 @@ import net.smartam.leeloo.client.response.OAuthClientResponseFactory;
 import net.smartam.leeloo.client.response.OAuthJSONAccessTokenResponse;
 import net.smartam.leeloo.common.exception.OAuthProblemException;
 import net.smartam.leeloo.common.exception.OAuthSystemException;
-import no.spp.sdk.oauth.OauthCredentials;
-
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,7 +1,6 @@
 package no.spp.sdk.client;
 
 import no.spp.sdk.net.HTTPMethod;
-import no.spp.sdk.oauth.OauthCredentials;
 
 import java.util.HashMap;
 import java.util.Map;

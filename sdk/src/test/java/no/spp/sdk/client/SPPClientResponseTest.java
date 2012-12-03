@@ -1,14 +1,11 @@
 package no.spp.sdk.client;
 
-import org.junit.Before;
-import org.junit.Test;
-import no.spp.sdk.client.SPPClientResponse;
-import no.spp.sdk.exception.SPPClientResponseException;
-
-import net.sf.json.JSON;   
-import net.sf.json.JSONException;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
+import no.spp.sdk.exception.SPPClientResponseException;
+import org.junit.Test;
 
 import static org.junit.Assert.*;
 

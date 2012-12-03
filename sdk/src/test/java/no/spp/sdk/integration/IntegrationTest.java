@@ -1,13 +1,13 @@
 package no.spp.sdk.integration;
 
 import net.sf.json.JSONObject;
-import no.spp.sdk.client.*;
+import no.spp.sdk.client.SPPClient;
+import no.spp.sdk.client.SPPClientResponse;
+import no.spp.sdk.client.ServerClientBuilder;
 import no.spp.sdk.exception.SPPClientException;
 import no.spp.sdk.exception.SPPClientRefreshTokenException;
 import no.spp.sdk.exception.SPPClientResponseException;
 import no.spp.sdk.oauth.ClientCredentials;
-
-import org.junit.Test;
 
 
 public class IntegrationTest {

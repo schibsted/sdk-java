@@ -4,8 +4,8 @@ package no.spp.sdk;
 import net.smartam.leeloo.client.response.OAuthAccessTokenResponse;
 import net.smartam.leeloo.common.exception.OAuthProblemException;
 import net.smartam.leeloo.common.exception.OAuthSystemException;
-import no.spp.sdk.client.UserClientBuilder;
 import no.spp.sdk.client.SPPClient;
+import no.spp.sdk.client.UserClientBuilder;
 import no.spp.sdk.exception.SPPClientException;
 import no.spp.sdk.fake.FakeHTTPClientWithFixedResponse;
 import no.spp.sdk.net.HTTPClient;
@@ -13,11 +13,8 @@ import no.spp.sdk.oauth.ClientCredentials;
 import no.spp.sdk.oauth.OauthCredentials;
 import no.spp.sdk.oauth.OauthHelper;
 import org.junit.Before;
-import org.junit.Test;
 
 import java.util.Calendar;
-
-import static org.junit.Assert.assertTrue;
 
 public class SPPClientBuilderTest {
 

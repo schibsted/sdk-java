@@ -1,10 +1,6 @@
 package no.spp.sdk.client;
 
-import net.sf.json.JSON;   
-import net.sf.json.JSONSerializer;
-import net.sf.json.JSONException;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import net.sf.json.*;
 import no.spp.sdk.exception.SPPClientResponseException;
 
 /**
@@ -191,8 +187,8 @@ public class SPPClientResponse
     }
 	
 	private String getValueOrNull(JSONObject object, String key) {
-		if (this.jsonContainer.containsKey(key))
-			return this.jsonContainer.getString(key);
+		if (object.containsKey(key))
+			return object.getString(key);
 		
 		return null;
 	}

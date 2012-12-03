@@ -1,12 +1,11 @@
 package no.spp.example.output;
 
+import net.sf.json.JSONObject;
+
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
 
 public class JSONOutput implements Output 
 {

@@ -6,7 +6,6 @@ import no.spp.sdk.net.HTTPMethod;
 import no.spp.sdk.oauth.ClientCredentials;
 import no.spp.sdk.oauth.OauthCredentials;
 import no.spp.sdk.oauth.OauthHelper;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

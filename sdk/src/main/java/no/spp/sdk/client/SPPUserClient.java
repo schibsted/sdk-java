@@ -1,9 +1,8 @@
 package no.spp.sdk.client;
 
-import org.apache.log4j.Logger;
-
 import no.spp.sdk.oauth.OauthCredentials;
 import no.spp.sdk.oauth.OauthHelper;
+import org.apache.log4j.Logger;
 
 /**
  * This is a user client. 

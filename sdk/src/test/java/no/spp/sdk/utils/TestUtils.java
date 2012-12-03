@@ -5,9 +5,7 @@ import no.spp.sdk.client.SPPClientResponse;
 import no.spp.sdk.exception.SPPClientException;
 import no.spp.sdk.exception.SPPClientRefreshTokenException;
 import no.spp.sdk.exception.SPPClientResponseException;
-
 import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;

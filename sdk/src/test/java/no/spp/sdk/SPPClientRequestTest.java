@@ -2,8 +2,6 @@ package no.spp.sdk;
 
 import no.spp.sdk.client.SPPClientRequest;
 import no.spp.sdk.net.HTTPMethod;
-import no.spp.sdk.oauth.OauthCredentials;
-
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
