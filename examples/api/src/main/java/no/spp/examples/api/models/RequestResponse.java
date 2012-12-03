@@ -33,16 +33,16 @@ public class RequestResponse implements Serializable {
         builder.append("SPPClient client = new SPPClient(...);\n");
         if (method == HTTPMethod.GET) {
             if (parameters == null || parameters.size() == 0) {
-                builder.append("SPPClientResult result = client.GET(\"" + endpoint + "\");\n");
+                builder.append("SPPClientResult result = client.GET(\"").append(endpoint).append("\");\n");
             } else {
-                builder.append("SPPClientResult result = client.GET(\"" + endpoint);
+                builder.append("SPPClientResult result = client.GET(\"").append(endpoint);
                 Boolean firstParameter = true;
                 for (String key : parameters.keySet()) {
                     if (firstParameter) {
                         firstParameter = false;
-                        builder.append("?" + key + "=" + parameters.get(key));
+                        builder.append("?").append(key).append("=").append(parameters.get(key));
                     } else {
-                        builder.append("&" + key + "=" + parameters.get(key));
+                        builder.append("&").append(key).append("=").append(parameters.get(key));
                     }
                 }
                 builder.append("\");\n");
@@ -50,9 +50,9 @@ public class RequestResponse implements Serializable {
         } else if (method == HTTPMethod.POST) {
             builder.append("Map<String, String> parameters = new HashMap<String, String>();\n");
             for (String key : parameters.keySet()) {
-                builder.append("parameters.put(\"" + key + "\", \"" + parameters.get(key) +"\");\n");
+                builder.append("parameters.put(\"").append(key).append("\", \"").append(parameters.get(key)).append("\");\n");
             }
-            builder.append("SPPClientResult result = client.POST(\"" + endpoint + "\", parameters);\n");
+            builder.append("SPPClientResult result = client.POST(\"").append(endpoint).append("\", parameters);\n");
         }
         builder.append("System.out.println(response.getJSON().toString(3));\n");
         return builder.toString();
