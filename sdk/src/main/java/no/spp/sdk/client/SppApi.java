@@ -1,5 +1,6 @@
 package no.spp.sdk.client;
 
+import net.sf.json.JSONSerializer;
 import no.spp.sdk.exception.HTTPClientException;
 import no.spp.sdk.exception.SPPClientException;
 import no.spp.sdk.exception.SPPClientRefreshTokenException;
@@ -8,11 +9,15 @@ import no.spp.sdk.net.HTTPClient;
 import no.spp.sdk.net.HTTPClientResponse;
 import no.spp.sdk.net.HTTPMethod;
 import no.spp.sdk.net.URLConnectionClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SppApi {
+
+    public static final Logger log = LoggerFactory.getLogger(SppApi.class);
 
     public static final String OAUTH_TOKEN_PARAM_NAME = "oauth_token";
 
@@ -49,14 +54,19 @@ public class SppApi {
         parameters.put(OAUTH_TOKEN_PARAM_NAME, oauthToken);
 
         long startTime = System.currentTimeMillis();
+        String requestUrl = this.buildRequestURL(sppClientRequest);
+
+
         try {
-            response = this.httpClient.execute(this.buildRequestURL(sppClientRequest), parameters, null, sppClientRequest.getHttpMethod().toString());
+            response = this.httpClient.execute(requestUrl, parameters, null, sppClientRequest.getHttpMethod().toString());
 
         } catch (HTTPClientException e) {
             throw new SPPClientException(e);
         }
         long endTime = System.currentTimeMillis();
-        return new SPPClientResponse(response.getResponseCode(), response.getResponseBody(), this.apiVersion, endTime - startTime);
+        SPPClientResponse sppClientResponse = new SPPClientResponse(response.getResponseCode(), response.getResponseBody(), this.apiVersion, endTime - startTime);
+        log.trace("Response from " + requestUrl + ": " + JSONSerializer.toJSON(response.getResponseBody()).toString(2));
+        return sppClientResponse;
 
     }
 

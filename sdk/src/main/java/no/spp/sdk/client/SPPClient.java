@@ -136,7 +136,7 @@ public abstract class SPPClient {
         try {
         	response = sppApi.makeRequest(request, oauthCredentials.getAccessToken());
         } catch(SPPClientInvalidGrantException e) {
-        	log.info("Caught exception that we handle", e);
+        	log.debug("Received exception that we can handle", e);
         	handleInvalidGrantException();
         	// Try request again
         	response = sppApi.makeRequest(request, oauthCredentials.getAccessToken());

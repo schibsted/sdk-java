@@ -22,6 +22,6 @@ public class SPPUserClient extends SPPClient {
 	@Override
 	protected void handleInvalidGrantException() {
 		// There is nothing we could do, the user need to log in again
-		log.info("User client does not handle invalid grant exception. The user must log in again.");
+		log.debug("User client does not handle invalid grant exception. The user must log in again.");
 	}
 }

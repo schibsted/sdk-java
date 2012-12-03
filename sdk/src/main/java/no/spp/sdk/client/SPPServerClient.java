@@ -25,7 +25,7 @@ public class SPPServerClient extends SPPClient {
 	 */
 	@Override
 	protected void handleInvalidGrantException() throws SPPClientException {
-    	log.info("Server client handles a invalid grant exception.");
+    	log.debug("Server client handles a invalid grant exception.");
 		OauthCredentials serverAccessToken = oauthHelper.getServerAccessToken();
 		this.setOauthCredentials(serverAccessToken);
 	}
