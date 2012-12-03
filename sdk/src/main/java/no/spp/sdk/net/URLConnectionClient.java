@@ -1,6 +1,5 @@
 package no.spp.sdk.net;
 
-import net.sf.json.JSONSerializer;
 import net.smartam.leeloo.client.request.OAuthClientRequest;
 import net.smartam.leeloo.client.response.OAuthClientResponse;
 import net.smartam.leeloo.common.exception.OAuthProblemException;
@@ -30,9 +29,7 @@ public class URLConnectionClient implements HTTPClient {
     private Integer readTimeout = 30000; //in milliseconds
     private net.smartam.leeloo.client.URLConnectionClient oauthURLConnectionClient = new net.smartam.leeloo.client.URLConnectionClient();
 
-    public HTTPClientResponse execute(String url, Map<String, String> parameters,
-                                      Map<String, String> headers, String requestMethod)
-            throws HTTPClientException {
+    public HTTPClientResponse execute(String url, Map<String, String> parameters, Map<String, String> headers, String requestMethod) throws HTTPClientException {
 
         HttpURLConnection conn;
         URL urlObject;
@@ -87,7 +84,7 @@ public class URLConnectionClient implements HTTPClient {
             InputStream inputStream;
             Integer responseCode = conn.getResponseCode();
 
-            log.debug("Received response code: " + responseCode + " for request: "+ url);
+            log.debug("Received response code: " + responseCode + " for request: " + url);
 
             if (responseCode >= 200 && responseCode < 300) {
                 inputStream = conn.getInputStream();
@@ -95,24 +92,29 @@ public class URLConnectionClient implements HTTPClient {
                 inputStream = conn.getErrorStream();
             }
 
-            Writer writer = new StringWriter();
-
-            if (inputStream != null) {
-                char[] buffer = new char[1024];
-                try {
-                    Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-                    int n;
-                    while ((n = reader.read(buffer)) != -1) {
-                        writer.write(buffer, 0, n);
-                    }
-                } finally {
-                    inputStream.close();
-                }
-            }
-            return new HTTPClientResponse(responseCode, writer.toString());
+            String responseBody = getResponseBody(inputStream);
+            return new HTTPClientResponse(responseCode, responseBody);
         } catch (IOException e) {
             throw new HTTPClientException(e);
         }
+    }
+
+    private String getResponseBody(InputStream inputStream) throws IOException {
+        Writer writer = new StringWriter();
+
+        if (inputStream != null) {
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } finally {
+                inputStream.close();
+            }
+        }
+        return writer.toString();
     }
 
     /**
