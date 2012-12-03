@@ -3,7 +3,7 @@ package no.spp.sdk.client;
 import no.spp.sdk.exception.SPPClientAPISecurityException;
 import no.spp.sdk.oauth.ClientCredentials;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.lang.StringUtils;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.InvalidKeyException;
@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Map;
 
 /**
- *
  * Class to handle security for client in API.
  *
  * @author Joakim Wånggren <joakim.wanggren@schibsted.se>
@@ -34,8 +33,8 @@ public class SPPClientAPISecurity {
         Mac mac;
         SecretKeySpec sks;
 
-        if(algorithm == null) algorithm = "HMAC-SHA256";
-        if(!algorithm.equals("HMAC-SHA256"))
+        if (algorithm == null) algorithm = "HMAC-SHA256";
+        if (!algorithm.equals("HMAC-SHA256"))
             throw new SPPClientAPISecurityException("Hash algorithm not supported. Expected HMAC-SHA256");
 
         try {
@@ -43,19 +42,16 @@ public class SPPClientAPISecurity {
             mac = Mac.getInstance("HmacSHA256");
             mac.init(sks);
             digest = mac.doFinal(b64data.getBytes("UTF-8"));
-        }
-        catch (NoSuchAlgorithmException nsae) {
+        } catch (NoSuchAlgorithmException nsae) {
             throw new SPPClientAPISecurityException(nsae.getMessage());
-        }
-        catch (InvalidKeyException ike) {
+        } catch (InvalidKeyException ike) {
             throw new SPPClientAPISecurityException(ike.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new SPPClientAPISecurityException(e.getMessage());
         }
 
         byte[] signature = base64UrlDecode(b64signature);
-        if(!Arrays.equals(digest, signature))
+        if (!Arrays.equals(digest, signature))
             throw new SPPClientAPISecurityException("Digest does not match signature");
 
         byte[] data = base64UrlDecode(b64data);
@@ -65,18 +61,11 @@ public class SPPClientAPISecurity {
     }
 
     public String generateHash(SPPClientRequest request) throws SPPClientAPISecurityException {
-        String str = "";
-        Map<String,String> parameters = request.getParameters();
-        try {
-            str = generateHash(parameters);
-        }
-        catch(SPPClientAPISecurityException e) {
-            throw e;
-        }
-        return str;
+        Map<String, String> parameters = request.getParameters();
+        return generateHash(parameters);
     }
 
-    public String generateHash(Map<String,String> parameters) throws SPPClientAPISecurityException {
+    public String generateHash(Map<String, String> parameters) throws SPPClientAPISecurityException {
         String str = "";
         Mac mac;
         SecretKeySpec sks;
@@ -93,15 +82,12 @@ public class SPPClientAPISecurity {
             mac = Mac.getInstance("HmacSHA256");
             mac.init(sks);
             byte[] digest = mac.doFinal(str.getBytes("UTF-8"));
-            str =  base64UrlEncode(digest);
-        }
-        catch (NoSuchAlgorithmException nsae) {
+            str = base64UrlEncode(digest);
+        } catch (NoSuchAlgorithmException nsae) {
             throw new SPPClientAPISecurityException(nsae.getMessage());
-        }
-        catch (InvalidKeyException ike) {
+        } catch (InvalidKeyException ike) {
             throw new SPPClientAPISecurityException(ike.getMessage());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new SPPClientAPISecurityException(e.getMessage());
         }
 
@@ -113,6 +99,6 @@ public class SPPClientAPISecurity {
     }
 
     private String base64UrlEncode(byte[] bytes) {
-        return Base64.encodeBase64URLSafeString(bytes).replace("+","-").replace("/","_");
+        return Base64.encodeBase64URLSafeString(bytes).replace("+", "-").replace("/", "_");
     }
 }
