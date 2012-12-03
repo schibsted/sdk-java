@@ -63,7 +63,7 @@ public class SppApi {
             throw new SPPClientException(e);
         }
         long endTime = System.currentTimeMillis();
-        SPPClientResponse sppClientResponse = null;
+        SPPClientResponse sppClientResponse;
         try {
             sppClientResponse = new SPPClientResponse(response.getResponseCode(), response.getResponseBody(), this.apiVersion, endTime - startTime);
         } catch (SPPClientResponseException e) {

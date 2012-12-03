@@ -73,7 +73,7 @@ public class APIExplorerServlet extends ServletController
 			data.put("authenticatedAs", "Server To Server");
 		}
 
-		String jsApiMethods = "";
+		String jsApiMethods;
 
         if(!userClient.getSppApi().getAPIVersion().equals("1") ){
 		    SPPClientResponse apiEndpoints = userClient.GET("/endpoints");
@@ -107,7 +107,7 @@ public class APIExplorerServlet extends ServletController
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void authorizeAction() throws ServletControllerException
 	{
-		String url = "";
+		String url;
 		
 		try {
 			url = OauthHelper.getAuthorizationURL(

@@ -130,7 +130,7 @@ public abstract class SPPClient {
      */
     public SPPClientResponse makeApiRequest(SPPClientRequest request) throws SPPClientException, SPPClientResponseException, SPPClientRefreshTokenException {
         oauthCredentials = refreshAndGetOauthCredentials();
-        SPPClientResponse response = null;
+        SPPClientResponse response;
         try {
         	response = sppApi.makeRequest(request, oauthCredentials.getAccessToken());
         } catch(SPPClientInvalidGrantException e) {

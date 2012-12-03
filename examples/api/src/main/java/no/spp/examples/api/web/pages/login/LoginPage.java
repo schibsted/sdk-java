@@ -24,9 +24,7 @@ public class LoginPage extends WebPage {
         if (!code.isEmpty()) {
             try {
                 ClientCredentials clientCredentials = new ClientCredentials(ApplicationSettings.CLIENT_ID, ApplicationSettings.CLIENT_SECRET, ApplicationSettings.REDIRECT_URI);
-                SPPClient client = null;
-
-                client = new UserClientBuilder(clientCredentials)
+                SPPClient client = new UserClientBuilder(clientCredentials)
                         .withUserAuthorizationCode(code.toString())
                         .withBaseUrl(ApplicationSettings.SERVER_URL)
                         .withApiVersion(ApplicationSettings.API_VERSION)

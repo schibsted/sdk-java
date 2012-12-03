@@ -187,8 +187,7 @@ public class SPPClientResponse
 		String signature = getResponseSignture();
         if(signature == null) return false;
         String algorithm = getResponseAlgorithm();
-        if(algorithm == null) return false;
-        return true;
+        return algorithm != null;
     }
 	
 	private String getValueOrNull(JSONObject object, String key) {
