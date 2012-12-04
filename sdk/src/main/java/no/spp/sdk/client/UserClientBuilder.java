@@ -20,8 +20,8 @@ public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
     /**
      * Conditionally mandatory property. either this one or {@link #withUserAuthorizationCode(String) }  must be invoked.
      *
-     * @param oAuthAccessTokenResponse
-     * @return
+     * @param oAuthAccessTokenResponse OauthCredentials to use
+     * @return The builder object
      */
     public UserClientBuilder withUserOauthCredentials(OauthCredentials oAuthAccessTokenResponse) {
         this.oauthCredentials = oAuthAccessTokenResponse;
@@ -34,8 +34,8 @@ public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
      * <b>NOTE:</b> Set this property cautiously, typically only when a user have just authorized.
      * Will cause the build phase to be expensive, due to an extra http request exchanging the code for a token.
      *
-     * @param authorizationCode
-     * @return
+     * @param authorizationCode Authorization code to use
+     * @return The builder object
      */
     public UserClientBuilder withUserAuthorizationCode(String authorizationCode) {
         this.authorizationCode = authorizationCode;

@@ -17,9 +17,9 @@ public interface HTTPClient extends net.smartam.leeloo.client.HttpClient {
     /**
      * Makes a HTTP request and returns a HTTPClientResponse containing response body and response code.
      *
-     * @param url
-     * @param parameters
-     * @param headers
+     * @param url Url for the request
+     * @param parameters A map of request paramters
+     * @param headers A map of request headers
      * @param requestMethod e.g GET, POST, PUT, DELETE, HEAD
      * @return HTTPClientResponse containing the the body and response code from the request.
      * @throws HTTPClientException if the request wasn't successful

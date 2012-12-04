@@ -82,54 +82,41 @@ public class APIPanel extends Panel {
 
     private RequestResponse getMeRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
         String endpoint = "/me";
-
-        JSON json;
-        try {
-            SPPClientResponse response = client.GET(endpoint);
-            json = response.getJSON();
-        } catch (SPPClientResponseException e) {
-            json = JSONSerializer.toJSON(e.getResponseBody());
-        }
-        return new RequestResponse(endpoint, json);
+        return getRequestResponse(client, endpoint);
     }
 
     private RequestResponse getUserRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
         String endpoint = "/user/" + client.getOauthCredentials().getUserId();
-
-        JSON json;
-        try {
-            SPPClientResponse response = client.GET(endpoint);
-            json = response.getJSON();
-        } catch (SPPClientResponseException e) {
-            json = JSONSerializer.toJSON(e.getResponseBody());
-        }
-        return new RequestResponse(endpoint, json);
+        return getRequestResponse(client, endpoint);
     }
 
     private RequestResponse getUsersRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
         String endpoint = "/users";
-
-        JSON json;
-        try {
-            SPPClientResponse response = client.GET(endpoint);
-            json = response.getJSON();
-        } catch (SPPClientResponseException e) {
-            json = JSONSerializer.toJSON(e.getResponseBody());
-        }
-        return new RequestResponse(endpoint, json);
+        return getRequestResponse(client, endpoint);
     }
 
     private RequestResponse getUserOrdersRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
         String endpoint = "/user/" + client.getOauthCredentials().getUserId() + "/orders";
+        return getRequestResponse(client, endpoint);
+    }
 
-        JSON json;
-        try {
-            SPPClientResponse response = client.GET(endpoint);
-            json = response.getJSON();
-        } catch (SPPClientResponseException e) {
-            json = JSONSerializer.toJSON(e.getResponseBody());
-        }
-        return new RequestResponse(endpoint, json);
+    private RequestResponse getProductsRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
+        String endpoint = "/products";
+        return getRequestResponse(client, endpoint, new HashMap<String, String>());
+    }
+
+    private RequestResponse getReportTemplateRequest(SPPClient client) throws SPPClientException, SPPClientRefreshTokenException {
+        String endpoint = "/reports/template/1";
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put("from", "1970-01-01");
+        parameters.put("to", "2100-01-01");
+
+        return getRequestResponse(client, endpoint, parameters);
+    }
+
+    private RequestResponse getDiscountsRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
+        String endpoint = "/discounts";
+        return getRequestResponse(client, endpoint);
     }
 
     private RequestResponse postProductRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
@@ -154,38 +141,7 @@ public class APIPanel extends Panel {
         return new RequestResponse(endpoint, parameters, HTTPMethod.POST, json);
     }
 
-    private RequestResponse getProductsRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
-        String endpoint = "/products";
-
-        JSON json;
-        try {
-            SPPClientResponse response = client.GET(endpoint, new HashMap<String, String>());
-            json = response.getJSON();
-        } catch (SPPClientResponseException e) {
-            json = JSONSerializer.toJSON(e.getResponseBody());
-        }
-        return new RequestResponse(endpoint, json);
-    }
-
-    private RequestResponse getReportTemplateRequest(SPPClient client) throws SPPClientException, SPPClientRefreshTokenException {
-        String endpoint = "/reports/template/1";
-        Map<String, String> parameters = new HashMap<String, String>();
-        parameters.put("from", "1970-01-01");
-        parameters.put("to", "2100-01-01");
-
-        JSON json;
-        try {
-            SPPClientResponse response = client.GET(endpoint, parameters);
-            json = response.getJSON();
-        } catch (SPPClientResponseException e) {
-            json = JSONSerializer.toJSON(e.getResponseBody());
-        }
-        return new RequestResponse(endpoint, parameters, HTTPMethod.GET, json);
-    }
-
-    private RequestResponse getDiscountsRequest(SPPClient client) throws SPPClientRefreshTokenException, SPPClientException {
-        String endpoint = "/discounts";
-
+    private RequestResponse getRequestResponse(SPPClient client, String endpoint) throws SPPClientException, SPPClientRefreshTokenException {
         JSON json;
         try {
             SPPClientResponse response = client.GET(endpoint);
@@ -194,5 +150,16 @@ public class APIPanel extends Panel {
             json = JSONSerializer.toJSON(e.getResponseBody());
         }
         return new RequestResponse(endpoint, json);
+    }
+
+    private RequestResponse getRequestResponse(SPPClient client, String endpoint, Map<String, String> parameters) throws SPPClientException, SPPClientRefreshTokenException {
+        JSON json;
+        try {
+            SPPClientResponse response = client.GET(endpoint, parameters);
+            json = response.getJSON();
+        } catch (SPPClientResponseException e) {
+            json = JSONSerializer.toJSON(e.getResponseBody());
+        }
+        return new RequestResponse(endpoint, parameters, HTTPMethod.GET, json);
     }
 }

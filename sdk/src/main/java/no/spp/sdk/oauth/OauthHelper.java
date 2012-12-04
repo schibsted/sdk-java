@@ -82,15 +82,7 @@ public class OauthHelper {
                     .setRedirectURI(clientCredentials.redirectUri)
                     .buildBodyMessage();
 
-            log.debug("Sending user access token request to url: " + request.getLocationUri());
-            log.trace("Request body: [" + request.getBody() + "]");
-
-            OAuthClient oAuthClient = new OAuthClient(httpClient);
-            OAuthAccessTokenResponse response = oAuthClient.accessToken(request);
-
-            log.debug("Received response from: " + request.getLocationUri());
-            log.trace("Response body: " + JSONSerializer.toJSON(response.getBody()).toString(2));
-            return new OauthCredentials(response);
+            return getOauthCredentials(request);
         } catch (OAuthSystemException e) {
             log.error("Exception when getting server access token for base  url " + sppBaseUrl + " using " + clientCredentials);
             log.error("Error message: " + e.getMessage());
@@ -104,6 +96,18 @@ public class OauthHelper {
             throw new SPPClientException(e);
         }
 
+    }
+
+    private OauthCredentials getOauthCredentials(OAuthClientRequest request) throws OAuthSystemException, OAuthProblemException {
+        log.debug("Sending user access token request to url: " + request.getLocationUri());
+        log.trace("Request body: [" + request.getBody() + "]");
+
+        OAuthClient oAuthClient = new OAuthClient(httpClient);
+        OAuthAccessTokenResponse response = oAuthClient.accessToken(request);
+
+        log.debug("Received response from: " + request.getLocationUri());
+        log.trace("Response body: " + JSONSerializer.toJSON(response.getBody()).toString(2));
+        return new OauthCredentials(response);
     }
 
     /**
@@ -136,15 +140,7 @@ public class OauthHelper {
                     .setCode(authorizationCode)
                     .buildBodyMessage();
 
-            log.debug("Sending user access token request to url: " + request.getLocationUri());
-            log.trace("Request body: [" + request.getBody() + "]");
-
-            OAuthClient oAuthClient = new OAuthClient(httpClient);
-            OAuthAccessTokenResponse response = oAuthClient.accessToken(request);
-
-            log.debug("Received response from: " + request.getLocationUri());
-            log.trace("Response body: " + JSONSerializer.toJSON(response.getBody()).toString(2));
-            return new OauthCredentials(oAuthClient.accessToken(request));
+            return getOauthCredentials(request);
         } catch (OAuthSystemException e) {
             log.error("Exception when getting user access token for base  url " + sppBaseUrl + " using " + clientCredentials);
             log.error("Error response: " + e.getMessage());

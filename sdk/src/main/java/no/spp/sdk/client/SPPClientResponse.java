@@ -52,7 +52,7 @@ public class SPPClientResponse {
      * Gets the response container.
      * Only for apiversion >= 2.
      *
-     * @return
+     * @return The response as a JSONObject
      */
     public JSONObject getJsonContainer() {
         return this.jsonContainer;
@@ -101,7 +101,7 @@ public class SPPClientResponse {
      * Gets the values of "data" in the container for apiversion >= 2.
      * Gets the entire response for apiversion >= 1.
      *
-     * @return
+     * @return Response as a String
      */
     public String getData() {
         if (apiVersion >= 2) {
@@ -114,7 +114,7 @@ public class SPPClientResponse {
     /**
      * Only for apiversion >= 2.
      *
-     * @return
+     * @return Debug container
      */
     public String getDebug() {
         if (!isSecondVersionOrHigher()) return null;
@@ -124,7 +124,7 @@ public class SPPClientResponse {
     /**
      * Only for apiversion >= 2.
      *
-     * @return
+     * @return Error container
      */
     public String getError() {
         if (!isSecondVersionOrHigher()) return null;
@@ -138,7 +138,7 @@ public class SPPClientResponse {
     /**
      * Only for apiversion >= 2.
      *
-     * @return
+     * @return Meta container
      */
     public String getMeta() {
         if (!isSecondVersionOrHigher()) return null;
@@ -148,7 +148,7 @@ public class SPPClientResponse {
     /**
      * Only for apiversion >= 2.
      *
-     * @return
+     * @return Request container
      */
     public String getRequestMeta() {
         if (!isSecondVersionOrHigher()) return null;
@@ -158,7 +158,7 @@ public class SPPClientResponse {
     /**
      * Only for apiversion >= 2.
      *
-     * @return
+     * @return Container type
      */
     public String getContainerType() {
         if (!isSecondVersionOrHigher()) return null;

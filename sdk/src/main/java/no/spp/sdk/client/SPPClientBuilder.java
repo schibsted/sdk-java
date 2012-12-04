@@ -30,8 +30,8 @@ public abstract class SPPClientBuilder<T extends SPPClient> {
     /**
      * Mandatory base url.
      *
-     * @param baseUrl
-     * @return
+     * @param baseUrl e.g. https://payment.schibsted.se
+     * @return The builder object
      */
     public SPPClientBuilder withBaseUrl(String baseUrl) {
         this.sppBaseUrl = baseUrl;
@@ -41,8 +41,8 @@ public abstract class SPPClientBuilder<T extends SPPClient> {
     /**
      * Override the default api version. Default = 2
      *
-     * @param apiVersion
-     * @return
+     * @param apiVersion API version to use
+     * @return The builder object
      */
     public SPPClientBuilder withApiVersion(String apiVersion) {
         this.apiVersion = apiVersion;
@@ -52,8 +52,8 @@ public abstract class SPPClientBuilder<T extends SPPClient> {
     /**
      * Override the default setting to autoRefresh access tokens. Default is true.
      *
-     * @param autoRefreshToken
-     * @return
+     * @param autoRefreshToken Should autorefresh token
+     * @return The builder object
      */
     public SPPClientBuilder autoRefreshToken(boolean autoRefreshToken) {
         this.autoRefreshToken = autoRefreshToken;
@@ -63,8 +63,8 @@ public abstract class SPPClientBuilder<T extends SPPClient> {
     /**
      * Override the default HTTPClient. Default is a {@link no.spp.sdk.net.URLConnectionClient}
      *
-     * @param httpClient
-     * @return
+     * @param httpClient the httpClient implementation to use for any underlying HTTP calls.
+     * @return The builder object
      */
     public SPPClientBuilder withHTTPClient(HTTPClient httpClient) {
         this.httpClient = httpClient;
@@ -78,7 +78,6 @@ public abstract class SPPClientBuilder<T extends SPPClient> {
      * @throws no.spp.sdk.exception.SPPClientException
      *
      */
-
     public T build() throws SPPClientException {
         if (sppBaseUrl == null) {
             throw new IllegalStateException("sppBaseUrl must be set");
@@ -94,9 +93,9 @@ public abstract class SPPClientBuilder<T extends SPPClient> {
     /**
      * Factory method for the client implementation.
      *
-     * @param api
-     * @param oauthHelper
-     * @return
+     * @param api API version to use
+     * @param oauthHelper The OauthHelper to use
+     * @return The client
      * @throws SPPClientException
      */
     protected abstract T createClient(SppApi api, OauthHelper oauthHelper, SPPClientAPISecurity sppClientAPISecurity) throws SPPClientException;

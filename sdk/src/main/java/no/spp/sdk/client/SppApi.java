@@ -17,9 +17,7 @@ import java.util.Map;
 public class SppApi {
 
     private static final Logger log = LoggerFactory.getLogger(SppApi.class);
-
     private static final String OAUTH_TOKEN_PARAM_NAME = "oauth_token";
-
     private String apiVersion;
     private RequestBuilder requestBuilder = new RequestBuilder();
     private HTTPClient httpClient = new URLConnectionClient();
@@ -28,9 +26,9 @@ public class SppApi {
     /**
      * Create an SppApi instance
      *
-     * @param httpClient
-     * @param apiVersion
-     * @param baseUrl    e g https://payment.schibsted.se
+     * @param httpClient HttpClient implementation to use
+     * @param apiVersion API version to use
+     * @param baseUrl    e.g. https://payment.schibsted.se
      */
     public SppApi(HTTPClient httpClient, String apiVersion, String baseUrl) {
         this.httpClient = httpClient;
@@ -41,8 +39,8 @@ public class SppApi {
     /**
      * Create an SppApi instance
      *
-     * @param apiVersion
-     * @param baseUrl    e g https://payment.schibsted.se
+     * @param apiVersion API version to use
+     * @param baseUrl e.g. https://payment.schibsted.se
      */
     public SppApi(String apiVersion, String baseUrl) {
         this.apiVersion = apiVersion;
@@ -96,8 +94,6 @@ public class SppApi {
      *
      * @throws no.spp.sdk.exception.SPPClientResponseException
      *
-     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException
-     *          this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse GET(String endpoint, String accessToken) throws SPPClientException, SPPClientResponseException {
         return this.makeRequest(requestBuilder
@@ -115,8 +111,6 @@ public class SppApi {
      *
      * @throws no.spp.sdk.exception.SPPClientResponseException
      *
-     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException
-     *          this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse GET(String endpoint, Map<String, String> parameters, String accessToken) throws SPPClientException, SPPClientResponseException {
         return this.makeRequest(requestBuilder.forEndpoint(endpoint).withParameters(parameters).build(), accessToken);
@@ -132,8 +126,6 @@ public class SppApi {
      *
      * @throws no.spp.sdk.exception.SPPClientResponseException
      *
-     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException
-     *          this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse POST(String endPoint, Map<String, String> parameters, String accessToken) throws SPPClientException, SPPClientResponseException {
         return this.makeRequest(requestBuilder
@@ -153,8 +145,6 @@ public class SppApi {
      *
      * @throws no.spp.sdk.exception.SPPClientResponseException
      *
-     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException
-     *          this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse PUT(String endpoint, Map<String, String> parameters, String accessToken) throws SPPClientException, SPPClientResponseException {
         return this.makeRequest(requestBuilder
@@ -173,23 +163,12 @@ public class SppApi {
      *
      * @throws no.spp.sdk.exception.SPPClientResponseException
      *
-     * @throws no.spp.sdk.exception.SPPClientRefreshTokenException
-     *          this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse DELETE(String method, String accessToken) throws SPPClientException, SPPClientResponseException {
         return this.makeRequest(requestBuilder
                 .forEndpoint(method)
                 .usingHttpMethod(HTTPMethod.DELETE)
                 .build(), accessToken);
-    }
-
-    /**
-     * Set the API version prefix to use for API calls.
-     *
-     * @param apiVersion can be null for default API version
-     */
-    public void setAPIVersion(String apiVersion) {
-        this.apiVersion = apiVersion;
     }
 
     /**
@@ -200,6 +179,15 @@ public class SppApi {
      */
     public String getAPIVersion() {
         return this.apiVersion;
+    }
+
+    /**
+     * Set the API version prefix to use for API calls.
+     *
+     * @param apiVersion can be null for default API version
+     */
+    public void setAPIVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
     }
 
     /**

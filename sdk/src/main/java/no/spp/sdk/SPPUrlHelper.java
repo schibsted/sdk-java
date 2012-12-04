@@ -134,12 +134,7 @@ public class SPPUrlHelper {
      * @return the URI for the login flow
      */
     public String getSignupURI(Map<String, String> inputParams) {
-        Map<String, String> params = new HashMap<String, String>(inputParams);
-        params.put("client_id", clientId);
-        params.put("response_type", "code");
-        params.put("flow", "signup");
-        params.put("return_session", "1");
-        params.put("session_version", "1");
+        Map<String, String> params = getDefaultParameters(inputParams);
 
         return getUrl(SPPURLName.WWW, "signup", params);
     }
@@ -158,21 +153,26 @@ public class SPPUrlHelper {
      * @return the URI for login
      */
     public String getLoginURI(Map<String, String> inputParams) {
+        Map<String, String> params = getDefaultParameters(inputParams);
+
+        return getUrl(SPPURLName.WWW, "login", params);
+    }
+
+    private Map<String, String> getDefaultParameters(Map<String, String> inputParams) {
         Map<String, String> params = new HashMap<String, String>(inputParams);
         params.put("client_id", clientId);
         params.put("response_type", "code");
         params.put("flow", "signup");
         params.put("return_session", "1");
         params.put("session_version", "1");
-
-        return getUrl(SPPURLName.WWW, "login", params);
+        return params;
     }
 
 
     /**
      * Get the URL to a given SPPURLName
      *
-     * @param name
+     * @param name The SPPURLName
      * @param apiVersion this is a version string that will be appended for API and API_READ URL's.
      * @return URL to given SPPURLName
      */
@@ -190,9 +190,9 @@ public class SPPUrlHelper {
     /**
      * Build the URI for given domain alias, path and parameters.
      *
-     * @param name
-     * @param path
-     * @param params
+     * @param name The SPPURLName
+     * @param path The path to the endpoint
+     * @param params The request parameters
      * @return the URI for the given parameters
      */
     private String getUrl(SPPURLName name, String path, Map<String, String> params) {
@@ -208,7 +208,7 @@ public class SPPUrlHelper {
     /**
      * URLEncode parameter map.
      *
-     * @param params
+     * @param params The request parameters
      * @return URLEncoded parameters.
      */
     private String encodeParameters(Map<String, String> params) {
