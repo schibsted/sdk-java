@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration debug="false" threshold="null" xmlns:log4j="http://jakarta.apache.org/log4j/">
-	<appender class="org.apache.log4j.ConsoleAppender" name="AllConsoleAppender">
-		<param name="threshold" value="TRACE"/>
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{ISO8601} %-5p %c{1}.%M: %m%n"/>
-		</layout>
-	</appender>
-	<category additivity="true" name="no.spp">
-		<priority value="TRACE"/>
-		<appender-ref ref="AllConsoleAppender"/>
-	</category>
+    <appender class="org.apache.log4j.ConsoleAppender" name="AllConsoleAppender">
+        <param name="threshold" value="TRACE"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} %-5p %c{1}.%M: %m%n"/>
+        </layout>
+    </appender>
+    <category additivity="true" name="no.spp">
+        <priority value="TRACE"/>
+        <appender-ref ref="AllConsoleAppender"/>
+    </category>
     <category additivity="true" name="*">
-		<priority value="TRACE"/>
-		<appender-ref ref="AllConsoleAppender"/>
-	</category>
-	<root>
-		<priority value="WARN"/>
-	</root>
+        <priority value="TRACE"/>
+        <appender-ref ref="AllConsoleAppender"/>
+    </category>
+    <root>
+        <priority value="WARN"/>
+    </root>
 </log4j:configuration>

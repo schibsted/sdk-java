@@ -18,7 +18,7 @@ public class SPPClientResponseTest {
             response.getJSONObject();
             fail("getJSONObject() should've thrown an exception version 2!");
         } catch (JSONException e) {
-            
+
         }
 
         //test version 1
@@ -27,9 +27,9 @@ public class SPPClientResponseTest {
             response.getJSONObject();
             fail("getJSONObject() should've thrown an exception on version 1 api!");
         } catch (JSONException e) {
-            
+
         }
-        
+
     }
 
     @Test
@@ -39,7 +39,7 @@ public class SPPClientResponseTest {
             response.getJSONArray();
             fail("getJSONArray() should've thrown an exception version 2!");
         } catch (JSONException e) {
-            
+
         }
 
         //test version 1
@@ -48,22 +48,22 @@ public class SPPClientResponseTest {
             response.getJSONArray();
             fail("getJSONArray() should've thrown an exception on version 1 api!");
         } catch (JSONException e) {
-            
+
         }
-        
+
     }
 
     @Test
     public void getJSON() throws SPPClientResponseException {
         SPPClientResponse response = new SPPClientResponse(200, "{\"data\":{\"foo\":\"bar\"}}", "2", 1);
         JSON json = response.getJSON();
-        assertFalse("json should not be an array", json.isArray());        
-        assertEquals("value for key foo should be bar", ((JSONObject)json).getString("foo"), "bar");
+        assertFalse("json should not be an array", json.isArray());
+        assertEquals("value for key foo should be bar", ((JSONObject) json).getString("foo"), "bar");
 
         response = new SPPClientResponse(200, "{\"data\":[\"foo\"]}", "2", 1);
         json = response.getJSON();
-        assertTrue("json should be an array", json.isArray());        
-        assertEquals("value for index 0 should be foo", ((JSONArray)json).get(0), "foo");
+        assertTrue("json should be an array", json.isArray());
+        assertEquals("value for index 0 should be foo", ((JSONArray) json).get(0), "foo");
     }
 
 }

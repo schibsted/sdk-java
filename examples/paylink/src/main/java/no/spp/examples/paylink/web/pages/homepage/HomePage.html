@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8"/>
-    <title>Paylink example</title>
-    <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet' type='text/css'/>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet"/>
-</head>
-<body>
-<h3>Create payment link</h3>
-<form wicket:id="form">
-    <label for="title">Paylink title</label><br>
-    <input wicket:id="title" id="title" type="text" size="40"/><br>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Paylink example</title>
+        <link href='http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:regular,bold' rel='stylesheet'
+              type='text/css'/>
+        <link rel="stylesheet" href="style.css" type="text/css" media="screen" title="Stylesheet"/>
+    </head>
+    <body>
+        <h3>Create payment link</h3>
 
-    <label for="flow">Payment flow</label><br>
-    <select wicket:id="flow" id="flow"></select><br>
+        <form wicket:id="form">
+            <label for="title">Paylink title</label><br>
+            <input wicket:id="title" id="title" type="text" size="40"/><br>
 
-    <label for="description">Paylink item description</label><br>
-    <input wicket:id="description" id="description" type="text" size="40"/><br>
+            <label for="flow">Payment flow</label><br>
+            <select wicket:id="flow" id="flow"></select><br>
 
-    <label for="price">Item price</label><br>
-    <input wicket:id="price" id="price" type="text" size="40"/><br>
+            <label for="description">Paylink item description</label><br>
+            <input wicket:id="description" id="description" type="text" size="40"/><br>
 
-    <input type="submit" wicket:id="saveButton" value="save" />
-</form>
-<div id="feedbackPanel">
-    <span wicket:id="feedback"/>
-</div>
+            <label for="price">Item price</label><br>
+            <input wicket:id="price" id="price" type="text" size="40"/><br>
 
-</body>
+            <input type="submit" wicket:id="saveButton" value="save"/>
+        </form>
+        <div id="feedbackPanel">
+            <span wicket:id="feedback"/>
+        </div>
+
+    </body>
 </html>

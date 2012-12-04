@@ -6,10 +6,10 @@ import no.spp.sdk.oauth.OauthCredentials;
 import no.spp.sdk.oauth.OauthHelper;
 
 /**
- * This is the server client builder. Generic functionality is placed in parent. 
- * Specific functionality is placed here. 
- * @author jono
+ * This is the server client builder. Generic functionality is placed in parent.
+ * Specific functionality is placed here.
  *
+ * @author jono
  */
 public class ServerClientBuilder extends SPPClientBuilder<SPPServerClient> {
     public ServerClientBuilder(ClientCredentials clientCredentials) {
@@ -20,9 +20,9 @@ public class ServerClientBuilder extends SPPClientBuilder<SPPServerClient> {
         return oauthHelper.getServerAccessToken();
     }
 
-	@Override
-	protected SPPServerClient createClient(SppApi sppApi, OauthHelper oauthHelper, SPPClientAPISecurity sppClientAPISecurity)
-			throws SPPClientException {
-		return new SPPServerClient(getInitialOauthCredentials(oauthHelper), sppApi, oauthHelper, sppClientAPISecurity);
-	}
+    @Override
+    protected SPPServerClient createClient(SppApi sppApi, OauthHelper oauthHelper, SPPClientAPISecurity sppClientAPISecurity)
+            throws SPPClientException {
+        return new SPPServerClient(getInitialOauthCredentials(oauthHelper), sppApi, oauthHelper, sppClientAPISecurity);
+    }
 }

@@ -15,35 +15,35 @@ import java.util.Properties;
 
 public class TestUtils {
 
-	public SPPClientResponse assertHttpCodeForRequest(SPPClient client, String endpoint) {
-		return assertHttpCodeForRequest(client, endpoint, new HashMap<String, String>(0));
-	}
+    public SPPClientResponse assertHttpCodeForRequest(SPPClient client, String endpoint) {
+        return assertHttpCodeForRequest(client, endpoint, new HashMap<String, String>(0));
+    }
 
-	public SPPClientResponse assertHttpCodeForRequest(SPPClient client, String endpoint, Map<String, String> params) {
-		SPPClientResponse response = null;
-		try {
-			response = client.GET(endpoint, params);
-			Integer httpResponseCode = response.getHttpResponseCode();
-			
-			Assert.assertEquals(200, (int)httpResponseCode);
-		} catch (SPPClientResponseException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (SPPClientRefreshTokenException e) {
-			e.printStackTrace();
-			Assert.fail();
-		} catch (SPPClientException e) {
-			e.printStackTrace();
-			Assert.fail();
-		}
-		return response;
-	}
+    public SPPClientResponse assertHttpCodeForRequest(SPPClient client, String endpoint, Map<String, String> params) {
+        SPPClientResponse response = null;
+        try {
+            response = client.GET(endpoint, params);
+            Integer httpResponseCode = response.getHttpResponseCode();
 
-	public Properties getLoadedProperties() throws IOException {
-		Properties properties = new Properties();
-		InputStream is = getClass().getClassLoader().getResourceAsStream("config.properties");
-		properties.load(is);
-		return properties;
-	}
+            Assert.assertEquals(200, (int) httpResponseCode);
+        } catch (SPPClientResponseException e) {
+            e.printStackTrace();
+            Assert.fail();
+        } catch (SPPClientRefreshTokenException e) {
+            e.printStackTrace();
+            Assert.fail();
+        } catch (SPPClientException e) {
+            e.printStackTrace();
+            Assert.fail();
+        }
+        return response;
+    }
+
+    public Properties getLoadedProperties() throws IOException {
+        Properties properties = new Properties();
+        InputStream is = getClass().getClassLoader().getResourceAsStream("config.properties");
+        properties.load(is);
+        return properties;
+    }
 
 }

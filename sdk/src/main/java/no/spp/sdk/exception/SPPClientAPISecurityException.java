@@ -5,18 +5,15 @@ package no.spp.sdk.exception;
  */
 public class SPPClientAPISecurityException extends SPPClientException {
 
-    public SPPClientAPISecurityException(String message)
-	{
-		super(message);
-	}
+    public SPPClientAPISecurityException(String message) {
+        super(message);
+    }
 
-	public SPPClientAPISecurityException(Throwable throwable)
-	{
-		super(throwable);
-	}
+    public SPPClientAPISecurityException(Throwable throwable) {
+        super(throwable);
+    }
 
-	public SPPClientAPISecurityException(String message, Throwable throwable)
-	{
-		super(message, throwable);
-	}
+    public SPPClientAPISecurityException(String message, Throwable throwable) {
+        super(message, throwable);
+    }
 }

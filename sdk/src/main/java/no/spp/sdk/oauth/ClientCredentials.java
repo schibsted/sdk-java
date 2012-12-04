@@ -12,7 +12,8 @@ public class ClientCredentials {
         this.redirectUri = redirectUri;
     }
 
-    public ClientCredentials(){}
+    public ClientCredentials() {
+    }
 
     public String getClientId() {
         return clientId;

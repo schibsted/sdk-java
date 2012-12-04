@@ -42,7 +42,7 @@ public class APIPanel extends Panel {
                 @Override
                 protected void populateItem(ListItem<RequestResponse> item) {
                     RequestResponse requestResponse = item.getModelObject();
-                    item.setMarkupId("api" + item.getIndex() );
+                    item.setMarkupId("api" + item.getIndex());
                     item.add(new CodePanel("code", requestResponse));
                 }
             };

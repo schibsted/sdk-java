@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
@@ -23,16 +22,16 @@ public class ApiRequestsForServerAuthClientTest {
     private Properties properties;
 
     @Before
-    public void setUp() throws SPPClientException, FileNotFoundException, IOException {
+    public void setUp() throws SPPClientException, IOException {
         testUtils = new TestUtils();
         properties = testUtils.getLoadedProperties();
 
         String clientId = properties.getProperty("clientId");
         String clientSecret = properties.getProperty("clientSecret");
         String redirectURI = properties.getProperty("redirectURI");
-        HTTPClient httpClient = new URLConnectionClient();
         String sppBaseUrl = properties.getProperty("sppBaseUrl");
         String apiVersion = properties.getProperty("apiVersion");
+        HTTPClient httpClient = new URLConnectionClient();
 
         ClientCredentials clientCredentials = new ClientCredentials(clientId, clientSecret, redirectURI);
 

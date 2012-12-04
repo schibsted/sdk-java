@@ -18,29 +18,31 @@ import java.util.Calendar;
 
 public class SPPClientBuilderTest {
 
-    public static final String REDIRECT_URI = "redirect://uri";
-    public static final String SECRET = "secret";
-    public static final String ID = "id";
-    public static final String SAMPLE_ACCESS_TOKEN = "590e6587a4cbe1fafbce1a442031a1db9ace1fea";
-    public static final String SAMPLE_REFRESH_TOKEN = "7a33e5974155bb9a4a46e61b7f7f052672889d62";
-    public static final int EXPIRES = 3600;
-    public static final String SPP_BASE_URL = "http://base.url";
+    private static final String REDIRECT_URI = "redirect://uri";
+    private static final String SECRET = "secret";
+    private static final String ID = "id";
+    private static final String SAMPLE_ACCESS_TOKEN = "590e6587a4cbe1fafbce1a442031a1db9ace1fea";
+    private static final String SAMPLE_REFRESH_TOKEN = "7a33e5974155bb9a4a46e61b7f7f052672889d62";
+    private static final int EXPIRES = 3600;
+    private static final String SPP_BASE_URL = "http://base.url";
 
-    private static String getAccessTokenResponseJson(){
+    private static String getAccessTokenResponseJson() {
         return getAccessTokenResponseJson(SAMPLE_ACCESS_TOKEN, EXPIRES, SAMPLE_REFRESH_TOKEN);
     }
-    private static String getAccessTokenResponseJson(String nakedToken, int expires, String refreshToken){
+
+    private static String getAccessTokenResponseJson(String nakedToken, int expires, String refreshToken) {
         return "{\"access_token\":\"" + nakedToken + "\",\"expires_in\":" + expires + ",\"scope\":null,\"user_id\":false,\"refresh_token\":\"" + refreshToken + "\",\"server_time\":1319803481}";
 
     }
+
     @Before
     public void createSPPUserClient() throws SPPClientException, OAuthProblemException, OAuthSystemException {
         ClientCredentials credentials = new ClientCredentials(ID, SECRET, REDIRECT_URI);
         OauthHelper oauthHelper = new OauthHelper(
                 SPP_BASE_URL,
-            credentials,
-            new FakeHTTPClientWithFixedResponse(getAccessTokenResponseJson()));
-        OauthCredentials tokenResponse =  oauthHelper.getServerAccessToken();
+                credentials,
+                new FakeHTTPClientWithFixedResponse(getAccessTokenResponseJson()));
+        OauthCredentials tokenResponse = oauthHelper.getServerAccessToken();
 
         SPPClient sppClient = new UserClientBuilder(credentials)
                 .withUserOauthCredentials(tokenResponse)

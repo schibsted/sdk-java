@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 
 public class OauthHelper {
 
-    public static final Logger log = LoggerFactory.getLogger(OauthHelper.class);
-    public static final String GRANT_TYPE_CLIENT_CREDENTIALS = "client_credentials";
-    public static final String OAUTH_TOKEN_PATH = "/oauth/token";
-    public static final String INVALID_GRANT_ERROR = "invalid_grant";
+    private static final Logger log = LoggerFactory.getLogger(OauthHelper.class);
+    private static final String GRANT_TYPE_CLIENT_CREDENTIALS = "client_credentials";
+    private static final String OAUTH_TOKEN_PATH = "/oauth/token";
+    private static final String INVALID_GRANT_ERROR = "invalid_grant";
     private final HTTPClient httpClient;
     private String sppBaseUrl;
     private ClientCredentials clientCredentials;
@@ -40,10 +40,10 @@ public class OauthHelper {
      *
      * @param clientId    Your client ID.
      * @param redirectURL the URL that the user will be redirected to after signing up / register, the response on this url should be used with getAutenticatedUserClient()
-     * @param sppBaseUrl Optional URL without trailing slash to override default URLs https://id.vgnett.no and https://login.vg.no (stage/production)
-     *
+     * @param sppBaseUrl  Optional URL without trailing slash to override default URLs https://id.vgnett.no and https://login.vg.no (stage/production)
      * @return The URL to use for authorization.
-     * @throws no.spp.sdk.exception.SPPClientException if authorization URL creation fails
+     * @throws no.spp.sdk.exception.SPPClientException
+     *          if authorization URL creation fails
      */
     public static String getAuthorizationURL(String clientId, String redirectURL, String sppBaseUrl) throws SPPClientException {
 

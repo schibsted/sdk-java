@@ -6,9 +6,9 @@ import no.spp.sdk.oauth.OauthCredentials;
 import no.spp.sdk.oauth.OauthHelper;
 
 /**
- * The builder for a user client. 
- * @author jono
+ * The builder for a user client.
  *
+ * @author jono
  */
 public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
     private String authorizationCode;
@@ -17,7 +17,8 @@ public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
         super(clientCredentials);
     }
 
-     /** Conditionally mandatory property. either this one or {@link #withUserAuthorizationCode(String) }  must be invoked.
+    /**
+     * Conditionally mandatory property. either this one or {@link #withUserAuthorizationCode(String) }  must be invoked.
      *
      * @param oAuthAccessTokenResponse
      * @return
@@ -27,8 +28,9 @@ public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
         return this;
     }
 
-    /** Conditionally mandatory property. either this one or {@link #withUserOauthCredentials(no.spp.sdk.oauth.OauthCredentials)}  must be invoked.
-     *
+    /**
+     * Conditionally mandatory property. either this one or {@link #withUserOauthCredentials(no.spp.sdk.oauth.OauthCredentials)}  must be invoked.
+     * <p/>
      * <b>NOTE:</b> Set this property cautiously, typically only when a user have just authorized.
      * Will cause the build phase to be expensive, due to an extra http request exchanging the code for a token.
      *
@@ -43,7 +45,7 @@ public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
     public OauthCredentials getInitialOauthCredentials(OauthHelper oauthHelper) throws SPPClientException {
         if (oauthCredentials == null) {
             if (authorizationCode != null) {
-                oauthCredentials = oauthHelper.getUserAccessToken( authorizationCode);
+                oauthCredentials = oauthHelper.getUserAccessToken(authorizationCode);
             } else {
                 throw new IllegalStateException("Either oauthCredentials or authorizationCode must be set!");
             }
@@ -51,8 +53,8 @@ public class UserClientBuilder extends SPPClientBuilder<SPPUserClient> {
         return oauthCredentials;
     }
 
-	@Override
-	protected SPPUserClient createClient(SppApi api, OauthHelper oauthHelper, SPPClientAPISecurity sppClientAPISecurity) throws SPPClientException {
-		return new SPPUserClient(getInitialOauthCredentials(oauthHelper), api, oauthHelper, sppClientAPISecurity);
-	}
+    @Override
+    protected SPPUserClient createClient(SppApi api, OauthHelper oauthHelper, SPPClientAPISecurity sppClientAPISecurity) throws SPPClientException {
+        return new SPPUserClient(getInitialOauthCredentials(oauthHelper), api, oauthHelper, sppClientAPISecurity);
+    }
 }

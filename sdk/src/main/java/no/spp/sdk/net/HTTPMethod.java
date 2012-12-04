@@ -5,7 +5,7 @@ public enum HTTPMethod {
     POST("POST"),
     PUT("PUT"),
     DELETE("DELETE");
-    
+
     private String httpMethod;
 
     HTTPMethod(String httpMethod) {

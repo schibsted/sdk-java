@@ -3,9 +3,9 @@ package no.spp.examples.clientlogin.models;
 public class User {
 
     private Integer userId;
-    public String name;
-    public String email;
-    public String password;
+    private String name;
+    private String email;
+    private String password;
 
     public String getEmail() {
         return email;

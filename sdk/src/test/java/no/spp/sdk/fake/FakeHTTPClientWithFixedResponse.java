@@ -11,7 +11,7 @@ import no.spp.sdk.net.HTTPClientResponse;
 
 import java.util.Map;
 
-public class FakeHTTPClientWithFixedResponse implements HTTPClient{
+public class FakeHTTPClientWithFixedResponse implements HTTPClient {
 
 
     private String responseBody;
@@ -27,10 +27,10 @@ public class FakeHTTPClientWithFixedResponse implements HTTPClient{
     public <T extends OAuthClientResponse> T execute(OAuthClientRequest oAuthClientRequest, Map<String, String> stringStringMap, String s, Class<T> tClass) throws OAuthSystemException, OAuthProblemException {
         FakeClientResponse resp = new FakeClientResponse();
         resp.init(responseBody, "application/json", 200);
-        return (T)resp;
+        return (T) resp;
     }
 
-    public static class FakeClientResponse extends OAuthJSONAccessTokenResponse{
+    public static class FakeClientResponse extends OAuthJSONAccessTokenResponse {
 
         @Override
         protected void init(String body, String contentType, int responseCode) throws OAuthProblemException {

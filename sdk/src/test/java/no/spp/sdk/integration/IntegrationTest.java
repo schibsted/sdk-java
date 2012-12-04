@@ -41,7 +41,6 @@ public class IntegrationTest {
         JSONObject jsonContainer = response.getJsonContainer();
 
 
-
         JSONObject data = jsonContainer.getJSONObject("data");
         if (data.isArray()) {
             for (Object endpoint : jsonContainer.getJSONArray("data")) {

@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class RequestBuilder {
     private String method;
-	private HTTPMethod httpMethod = HTTPMethod.GET;
-	private Map<String,String> parameters = new HashMap<String, String>();
+    private HTTPMethod httpMethod = HTTPMethod.GET;
+    private Map<String, String> parameters = new HashMap<String, String>();
 
     public RequestBuilder forEndpoint(String endpoint) {
         this.method = endpoint;
@@ -29,7 +29,7 @@ public class RequestBuilder {
         return this;
     }
 
-    public SPPClientRequest build(){
+    public SPPClientRequest build() {
         return new SPPClientRequest(method, parameters, httpMethod);
     }
 

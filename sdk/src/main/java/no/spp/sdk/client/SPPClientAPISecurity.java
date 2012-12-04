@@ -18,7 +18,7 @@ import java.util.Map;
  */
 public class SPPClientAPISecurity {
 
-    ClientCredentials clientCredentials;
+    private ClientCredentials clientCredentials;
 
     public SPPClientAPISecurity(ClientCredentials clientCredentials) {
         this.clientCredentials = clientCredentials;

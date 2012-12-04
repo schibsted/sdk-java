@@ -17,7 +17,7 @@ public class OauthCredentials implements Serializable {
     private final String refreshToken;
     private final String expiresInSeconds;
 
-    public OauthCredentials(String accessToken, String refreshToken, String expiresInSeconds, String userId){
+    public OauthCredentials(String accessToken, String refreshToken, String expiresInSeconds, String userId) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.expiresInSeconds = expiresInSeconds;
@@ -25,7 +25,7 @@ public class OauthCredentials implements Serializable {
         this.userId = userId;
     }
 
-    public OauthCredentials(OAuthAccessTokenResponse oAuthAccessTokenResponse){
+    public OauthCredentials(OAuthAccessTokenResponse oAuthAccessTokenResponse) {
         this.accessToken = oAuthAccessTokenResponse.getAccessToken();
         this.refreshToken = oAuthAccessTokenResponse.getRefreshToken();
         this.expiresInSeconds = oAuthAccessTokenResponse.getExpiresIn();
@@ -50,11 +50,11 @@ public class OauthCredentials implements Serializable {
         return this.expiresInSeconds;
     }
 
-    public boolean isExpiredNow(){
+    public boolean isExpiredNow() {
         return isExpired(new Date());
     }
 
-    public boolean isExpired(Date when){
+    public boolean isExpired(Date when) {
         return expiresDate.before(when);
     }
 
