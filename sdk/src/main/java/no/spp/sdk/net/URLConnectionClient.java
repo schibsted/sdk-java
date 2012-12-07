@@ -30,7 +30,6 @@ public class URLConnectionClient implements HTTPClient {
     private net.smartam.leeloo.client.URLConnectionClient oauthURLConnectionClient = new net.smartam.leeloo.client.URLConnectionClient();
 
     public HTTPClientResponse execute(String url, Map<String, String> parameters, Map<String, String> headers, String requestMethod) throws HTTPClientException {
-
         HttpURLConnection conn;
         URL urlObject;
         String body = null;
@@ -58,9 +57,9 @@ public class URLConnectionClient implements HTTPClient {
             if (parameters == null) {
                 parameters = new HashMap<String, String>();
             }
-            log.debug("Sending " + requestMethod + " request to url: " + url);
-            log.trace("Request headers:[" + headers.toString() + "]");
-            log.trace("Request parameters: [" + parameters.toString() + "]");
+            log.debug("Sending " + requestMethod + " request to url: " + url + "\n");
+            log.trace("Request headers:[" + headers.toString() + "]\n");
+            log.trace("Request parameters: [" + parameters.toString() + "]\n");
             conn = (HttpURLConnection) urlObject.openConnection();
             conn.setReadTimeout(this.readTimeout);
             conn.setConnectTimeout(this.getConnectTimeout());
@@ -84,7 +83,7 @@ public class URLConnectionClient implements HTTPClient {
             InputStream inputStream;
             Integer responseCode = conn.getResponseCode();
 
-            log.debug("Received response code: " + responseCode + " for request: " + url);
+            log.debug("Received response code: " + responseCode + " for request: " + url + "\n");
 
             if (responseCode >= 200 && responseCode < 300) {
                 inputStream = conn.getInputStream();
