@@ -1,9 +1,9 @@
 package no.spp.sdk.client;
 
-import org.apache.log4j.Logger;
-
 import no.spp.sdk.oauth.OauthCredentials;
 import no.spp.sdk.oauth.OauthHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This is a user client. 
@@ -12,7 +12,7 @@ import no.spp.sdk.oauth.OauthHelper;
  */
 public class SPPUserClient extends SPPClient {
 
-	Logger log =  Logger.getLogger(SPPServerClient.class);
+	Logger log =  LoggerFactory.getLogger(SPPServerClient.class);
 
 	SPPUserClient(OauthCredentials oauthCredentials, SppApi sppApi,
 			OauthHelper oauthHelper, SPPClientAPISecurity sppClientAPISecurity) {
