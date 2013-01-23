@@ -1,7 +1,6 @@
 package no.spp.sdk.client;
 
 import no.spp.sdk.net.HTTPMethod;
-import no.spp.sdk.oauth.OauthCredentials;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,4 +88,13 @@ public class SPPClientRequest
 	public HTTPMethod getHttpMethod() {
 		return httpMethod;
 	}
+
+    @Override
+    public String toString() {
+        return "SPPClientRequest{" +
+                "endpoint='" + endpoint + '\'' +
+                ", httpMethod=" + httpMethod +
+                ", parameters=" + parameters +
+                '}';
+    }
 }
