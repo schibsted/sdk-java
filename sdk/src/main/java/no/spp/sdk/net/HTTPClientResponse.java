@@ -40,5 +40,12 @@ public class HTTPClientResponse
 	{
 		return responseBody;
 	}
-	
+
+    @Override
+    public String toString() {
+        return "HTTPClientResponse{" +
+                "responseCode=" + responseCode +
+                ", responseBody='" + responseBody + '\'' +
+                '}';
+    }
 }

@@ -29,7 +29,6 @@ public abstract class SPPClient {
     private final Object refreshOauthLock = new Object();
     private Boolean autoRefreshToken = true;
 
-    final RequestBuilder requestBuilder;
     private SppApi sppApi = null;
     OauthHelper oauthHelper;
     SPPClientAPISecurity sppClientAPISecurity;
@@ -39,7 +38,6 @@ public abstract class SPPClient {
         this.sppClientAPISecurity = sppClientAPISecurity;
         this.sppApi = sppApi;
         this.oauthHelper = oauthHelper;
-        this.requestBuilder = new RequestBuilder();
     }
 
     /**
@@ -52,7 +50,7 @@ public abstract class SPPClient {
      * @throws no.spp.sdk.exception.SPPClientRefreshTokenException this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse GET(String method) throws SPPClientException, SPPClientResponseException, SPPClientRefreshTokenException {
-        return this.makeApiRequest(requestBuilder.forEndpoint(method).build());
+        return this.makeApiRequest(new RequestBuilder().forEndpoint(method).build());
     }
 
     /**
@@ -66,7 +64,7 @@ public abstract class SPPClient {
      * @throws no.spp.sdk.exception.SPPClientRefreshTokenException this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse GET(String method, Map<String, String> parameters) throws SPPClientException, SPPClientResponseException, SPPClientRefreshTokenException {
-        return makeApiRequest(requestBuilder.forEndpoint(method).withParameters(parameters).build());
+        return makeApiRequest(new RequestBuilder().forEndpoint(method).withParameters(parameters).build());
     }
 
      /**
@@ -80,7 +78,7 @@ public abstract class SPPClient {
      * @throws no.spp.sdk.exception.SPPClientRefreshTokenException this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse POST(String method, Map<String, String> parameters) throws SPPClientException, SPPClientResponseException, SPPClientRefreshTokenException {
-        return makeApiRequest(requestBuilder
+        return makeApiRequest(new RequestBuilder()
                 .forEndpoint(method)
                 .withParameters(parameters)
                 .usingHttpMethod(HTTPMethod.POST)
@@ -98,7 +96,7 @@ public abstract class SPPClient {
      * @throws no.spp.sdk.exception.SPPClientRefreshTokenException this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse PUT(String method, Map<String, String> parameters) throws SPPClientException, SPPClientResponseException, SPPClientRefreshTokenException {
-        return makeApiRequest(requestBuilder
+        return makeApiRequest(new RequestBuilder()
                 .forEndpoint(method)
                 .withParameters(parameters)
                 .usingHttpMethod(HTTPMethod.PUT)
@@ -115,7 +113,7 @@ public abstract class SPPClient {
      * @throws no.spp.sdk.exception.SPPClientRefreshTokenException this will only be thrown if autoRefreshToken is set to true and it fails to refresh the token if it has expired.
      */
     public SPPClientResponse DELETE(String method) throws SPPClientException, SPPClientResponseException, SPPClientRefreshTokenException {
-        return makeApiRequest(requestBuilder
+        return makeApiRequest(new RequestBuilder()
                 .forEndpoint(method)
                 .usingHttpMethod(HTTPMethod.DELETE)
                 .build());
