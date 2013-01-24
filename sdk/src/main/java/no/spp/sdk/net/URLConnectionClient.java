@@ -92,13 +92,10 @@ public class URLConnectionClient implements HTTPClient {
             
             log.debug("Response code {}", responseCode);
             
-            if (responseCode >= 200 && responseCode < 400) {
+            if ((responseCode >= 200 && responseCode < 300) || responseCode == 302) {
             	inputStream = conn.getInputStream();
             } else {            	
             	inputStream = conn.getErrorStream();
-//                Writer writer2 = getWriter(conn.getInputStream());
-//
-//                log.debug("Response inputstr: {}", writer2.toString());
             }
 
             Writer writer = getWriter(inputStream);
