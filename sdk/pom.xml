@@ -3,10 +3,9 @@
   <parent>
     <groupId>no.spp.sdk</groupId>
     <artifactId>spp-parent</artifactId>
-    <version>1.3.10-SNAPSHOT</version>
+    <version>1.3.10</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>no.spp.sdk</groupId>
   <artifactId>spp-sdk</artifactId>
   <packaging>jar</packaging>
   <name>spp-sdk</name>
