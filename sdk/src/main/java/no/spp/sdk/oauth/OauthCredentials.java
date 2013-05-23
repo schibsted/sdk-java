@@ -1,5 +1,8 @@
 package no.spp.sdk.oauth;
 
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONSerializer;
 import net.smartam.leeloo.client.response.OAuthAccessTokenResponse;
 
 import java.io.Serializable;
@@ -11,12 +14,14 @@ public class OauthCredentials implements Serializable {
     private final String accessToken;
     private final String refreshToken;
     private final String expiresInSeconds;
+    private final String userId;
 
     public OauthCredentials(String accessToken, String refreshToken, String expiresInSeconds){
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.expiresInSeconds = expiresInSeconds;
         expiresDate = getExpiryDateFromExpiresIn(expiresInSeconds);
+        this.userId = "";
     }
 
     public OauthCredentials(OAuthAccessTokenResponse oAuthAccessTokenResponse){
@@ -24,6 +29,9 @@ public class OauthCredentials implements Serializable {
         refreshToken = oAuthAccessTokenResponse.getRefreshToken();
         expiresInSeconds = oAuthAccessTokenResponse.getExpiresIn();
         expiresDate = getExpiryDateFromExpiresIn(expiresInSeconds);
+        String body = oAuthAccessTokenResponse.getBody();
+        JSONObject jsonObject = (JSONObject) JSONSerializer.toJSON(body);
+        userId = jsonObject.get("user_id").toString();
     }
 
     private Date getExpiryDateFromExpiresIn(String expiresInSeconds) {
@@ -51,6 +59,10 @@ public class OauthCredentials implements Serializable {
         return expiresDate.before(when);
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     @Override
     public String toString() {
         return "OauthCredentials{" +
@@ -58,6 +70,9 @@ public class OauthCredentials implements Serializable {
                 ", accessToken='" + accessToken + '\'' +
                 ", refreshToken='" + refreshToken + '\'' +
                 ", expiresInSeconds='" + expiresInSeconds + '\'' +
+                ", userId='" + userId + '\'' +
                 '}';
     }
+
+
 }

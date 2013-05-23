@@ -64,7 +64,6 @@ public class SPPUrlHelper {
        public String getAccountURI(Map<String, String> inputParams) {
            Map<String, String> params = new HashMap<String, String>(inputParams);
            params.put("client_id", clientId);
-           params.put("response_type", "code");
 
            return getUrl(SPPURLName.WWW, "account", params);
        }
@@ -78,7 +77,6 @@ public class SPPUrlHelper {
         public String getSubscriptionsURI(Map<String, String> inputParams) {
             Map<String, String> params = new HashMap<String, String>(inputParams);
             params.put("client_id", clientId);
-            params.put("response_type", "code");
 
             return getUrl(SPPURLName.WWW, "account/subscriptions", params);
         }
@@ -92,7 +90,6 @@ public class SPPUrlHelper {
        public String getPurchaseHistoryURI(Map<String, String> inputParams) {
            Map<String, String> params = new HashMap<String, String>(inputParams);
            params.put("client_id", clientId);
-           params.put("response_type", "code");
 
            return getUrl(SPPURLName.WWW, "account/purchasehistory", params);
        }

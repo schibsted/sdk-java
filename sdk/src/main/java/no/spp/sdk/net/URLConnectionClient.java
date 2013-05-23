@@ -92,35 +92,41 @@ public class URLConnectionClient implements HTTPClient {
             
             log.debug("Response code {}", responseCode);
             
-            if (responseCode >= 200 && responseCode < 300) {
+            if ((responseCode >= 200 && responseCode < 300) || responseCode == 302) {
             	inputStream = conn.getInputStream();
             } else {            	
             	inputStream = conn.getErrorStream();
             }
 
-            Writer writer = new StringWriter();
-
-            if (inputStream != null) {
-		        char[] buffer = new char[1024];
-		        try {
-		            Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-		            int n;
-		            while ((n = reader.read(buffer)) != -1) {
-		                writer.write(buffer, 0, n);
-		            }
-		        } finally {
-	        		inputStream.close();
-		        }
-			}
+            Writer writer = getWriter(inputStream);
 
             log.debug("Response body: {}", writer.toString());
+
             return new HTTPClientResponse(responseCode, writer.toString());
 		} catch (IOException e) {
 			throw new HTTPClientException(e);			
 		}
 	}
 
-	/**
+    private Writer getWriter(InputStream inputStream) throws IOException {
+        Writer writer = new StringWriter();
+
+        if (inputStream != null) {
+            char[] buffer = new char[1024];
+            try {
+                Reader reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+                int n;
+                while ((n = reader.read(buffer)) != -1) {
+                    writer.write(buffer, 0, n);
+                }
+            } finally {
+                inputStream.close();
+            }
+        }
+        return writer;
+    }
+
+    /**
 	 * Get the connect timeout setting
 	 * 
 	 * @return the current setting for connect timeout in ms.
