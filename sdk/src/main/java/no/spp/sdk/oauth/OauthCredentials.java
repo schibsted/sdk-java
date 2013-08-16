@@ -17,15 +17,11 @@ public class OauthCredentials implements Serializable {
     private final String userId;
 
     public OauthCredentials(String accessToken, String refreshToken, String expiresInSeconds){
-        this(accessToken, refreshToken, expiresInSeconds, "");
-    }
-
-    public OauthCredentials(String accessToken, String refreshToken, String expiresInSeconds, String userId) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.expiresInSeconds = expiresInSeconds;
-        this.userId = userId;
-        this.expiresDate = getExpiryDateFromExpiresIn(expiresInSeconds);
+        expiresDate = getExpiryDateFromExpiresIn(expiresInSeconds);
+        this.userId = "";
     }
 
     public OauthCredentials(OAuthAccessTokenResponse oAuthAccessTokenResponse){
