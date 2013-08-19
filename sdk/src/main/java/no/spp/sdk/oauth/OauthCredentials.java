@@ -10,6 +10,8 @@ import java.util.Date;
 
 public class OauthCredentials implements Serializable {
 
+    private static final long serialVersionUID = -1860557532714812684L;
+
     private final Date expiresDate;
     private final String accessToken;
     private final String refreshToken;
