@@ -33,12 +33,13 @@ public class ApiRequestsForServerAuthClientTest {
 		
 		String clientId = properties.getProperty("clientId");
 		String clientSecret = properties.getProperty("clientSecret");
+		String clientSignSecret = properties.getProperty("clientSignSecret");
 		String redirectURI = properties.getProperty("redirectURI");
 		HTTPClient httpClient = new URLConnectionClient();
 		String sppBaseUrl = properties.getProperty("sppBaseUrl");
 		String apiVersion = properties.getProperty("apiVersion");
 
-        ClientCredentials clientCredentials = new ClientCredentials(clientId, clientSecret, redirectURI);
+        ClientCredentials clientCredentials = new ClientCredentials(clientId, clientSecret, clientSignSecret, redirectURI);
 
         client = new ServerClientBuilder(clientCredentials)
             .withBaseUrl(sppBaseUrl)

@@ -23,6 +23,7 @@ public class SPPClientBuilderTest {
 
     public static final String REDIRECT_URI = "redirect://uri";
     public static final String SECRET = "secret";
+    public static final String SIGN_SECRET = "signsecret";
     public static final String ID = "id";
     public static final String SAMPLE_ACCESS_TOKEN = "590e6587a4cbe1fafbce1a442031a1db9ace1fea";
     public static final String SAMPLE_REFRESH_TOKEN = "7a33e5974155bb9a4a46e61b7f7f052672889d62";
@@ -41,7 +42,7 @@ public class SPPClientBuilderTest {
     }
     @Before
     public void createSPPUserClient() throws SPPClientException, OAuthProblemException, OAuthSystemException {
-        ClientCredentials credentials = new ClientCredentials(ID, SECRET, REDIRECT_URI);
+        ClientCredentials credentials = new ClientCredentials(ID, SECRET, SIGN_SECRET, REDIRECT_URI);
         OauthHelper oauthHelper = new OauthHelper(
                 SPP_BASE_URL,
             credentials,

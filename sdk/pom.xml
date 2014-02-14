@@ -9,7 +9,7 @@
   <artifactId>spp-sdk</artifactId>
   <packaging>jar</packaging>
   <name>spp-sdk</name>
-  <url>http://code.google.com/p/vgservices-sdk/</url>
+  <url>https://github.com/schibsted/sdk-java</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

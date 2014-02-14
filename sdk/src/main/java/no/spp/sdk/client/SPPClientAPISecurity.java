@@ -34,12 +34,16 @@ public class SPPClientAPISecurity {
         Mac mac;
         SecretKeySpec sks;
 
-        if(algorithm == null) algorithm = "HMAC-SHA256";
-        if(!algorithm.equals("HMAC-SHA256"))
+        if (algorithm == null) {
+            algorithm = "HMAC-SHA256";
+        }
+
+        if (!algorithm.equals("HMAC-SHA256")) {
             throw new SPPClientAPISecurityException("Hash algorithm not supported. Expected HMAC-SHA256");
+        }
 
         try {
-            sks = new SecretKeySpec(this.clientCredentials.getClientSecret().getBytes("UTF-8"), "HmacSHA256");
+            sks = new SecretKeySpec(this.clientCredentials.getClientSignSecret().getBytes("UTF-8"), "HmacSHA256");
             mac = Mac.getInstance("HmacSHA256");
             mac.init(sks);
             digest = mac.doFinal(b64data.getBytes("UTF-8"));
@@ -89,7 +93,7 @@ public class SPPClientAPISecurity {
         }
 
         try {
-            sks = new SecretKeySpec(this.clientCredentials.getClientSecret().getBytes("UTF-8"), "HmacSHA256");
+            sks = new SecretKeySpec(this.clientCredentials.getClientSignSecret().getBytes("UTF-8"), "HmacSHA256");
             mac = Mac.getInstance("HmacSHA256");
             mac.init(sks);
             byte[] digest = mac.doFinal(str.getBytes("UTF-8"));
