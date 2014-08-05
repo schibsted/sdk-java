@@ -1,3 +1,7 @@
+# NOTE: SDK Discontinued
+This SDK will not be developed any further.
+Please consider moving to our new java client https://github.com/schibsted/spid-client-java. (Also available directly from Maven Central)
+
 SPiD SDK for Java
 =================
 
