@@ -26,7 +26,7 @@ public class IntegrationTest {
 
         String redirectUri = "http://localhost:8080";
         String clientId = "<Client ID>";
-        String sppBaseUrl = "https://stage.payment.schibsted.no";
+        String sppBaseUrl = "https://identity-pre.schibsted.com";
 
         ClientCredentials credentials = new ClientCredentials(clientId, clientSecret, clientSignSecret, redirectUri);
         SPPClient serverClient = new ServerClientBuilder(credentials)
